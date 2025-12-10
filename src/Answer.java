@@ -5,11 +5,11 @@
 
 public class Answer {
     String label;
-    Category gulpo;
+    Category cat;
     
     // Constructor
     Answer(String label, Category c) {
         this.label = label; 
-        this.gulpo = c;
+        this.cat = c;
     }
 }

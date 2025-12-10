@@ -21,8 +21,15 @@ public class Question {
             System.out.println("[" + choice + "]:" +
                     this.possibleAnswers[i].label);
         }
-        int ans = sc.nextInt();
-        return possibleAnswers[ans - 1].gulpo;
+        int ans;
+        while(true){
+            ans = sc.nextInt();
+            boolean checker=sc.hasNextInt();
+            if(checker==true)
+                break;
+            else
+                System.out.println("Please enter an integer");}
+        return possibleAnswers[ans - 1].cat;
     }
 
 }

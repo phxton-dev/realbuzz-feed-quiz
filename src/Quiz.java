@@ -33,8 +33,31 @@ public class Quiz {
                 q3.possibleAnswers[1] = new Answer("You're playing on the basketball court; full energy", Vanilla);
                 q3.possibleAnswers[2] = new Answer("You're lying on the sofa, scrolling and taking life slow", NetheriteOP);
 
-                // ... more questions here
+                Question q4 = new Question("You were assigned a school book, how fast do you read it?");
+                q4.possibleAnswers[0] = new Answer("You read it as fast as you can, skimming it even", Vanilla);
+                q4.possibleAnswers[1] = new Answer("You closely read every word, annotating with care", NetheriteOP);
+                q4.possibleAnswers[2] = new Answer("Your reading speed varies, you go fast when a section isn’t important and lock in when it is", SMP);
 
+                Question q5 = new Question("In a group conversation, you're usually the one to...");
+                q5.possibleAnswers[0] = new Answer("Jump in often", Vanilla);
+                q5.possibleAnswers[1] = new Answer("Connect everyone's ideas together", SMP);
+                q5.possibleAnswers[2] = new Answer("Listen the longest before speaking", NetheriteOP);
+
+                Question q6 = new Question("You are locked in a completely white infinity room as a social experiment. What do you do?");
+                q6.possibleAnswers[0] = new Answer("You try to find cracks in the room to see if there is a way out", SMP);
+                q6.possibleAnswers[1] = new Answer("You grow restless and start clawing at the walls like an animal", Vanilla);
+                q6.possibleAnswers[2] = new Answer("You sit on the white chair in the middle of the room and meditate", NetheriteOP);
+
+                Question q7 = new Question("You get the procedure for your lab double period. It is complicated and two pages long. You would…");
+                q7.possibleAnswers[0] = new Answer("Read everything carefully", NetheriteOP);
+                q7.possibleAnswers[1] = new Answer("Identify and read the parts that matter the most", SMP);
+                q7.possibleAnswers[2] = new Answer("Read everything carefully", NetheriteOP);
+
+                Question q8 = new Question("You’re about to try learning a new hobby. How do you start?");
+                q8.possibleAnswers[0] = new Answer("Dive right in and see what happens", Vanilla);
+                q8.possibleAnswers[1] = new Answer("Practice the basics until you master them", NetheriteOP);
+                q8.possibleAnswers[2] = new Answer("Mix different techniques and see what fits", SMP);
+                
                 // For each question, ask, read input, store answer.
                 gameIntro();
                 Question[] qList = { q1, q2 };
@@ -44,18 +67,18 @@ public class Quiz {
                 }
                 // Get most common category from the questions asked
                 // Return Category
-                Category[] cList = { monopoly, catan, ers, hanabi };
+                Category[] cList = { Vanilla, NetheriteOP, SMP};
                 // these need to be in the same order or the points will be incorrect!
                 int index = getMostPopularCatIndex(cList);
-                System.out.println("If you were a board game, you would be " + cList[index].label + ". ");
+                System.out.println("If you were a Minecraft PVP kit, you would be:" + cList[index].label + ". ");
                 System.out.println(cList[index].description);
 
         }
 
         public static void gameIntro() {
                 // requires 1 to keep going
-                System.out.println("Which Board Game Are You?");
-                System.out.println("You get to choose numbers 1-4 for every question. Enter '1' to play!");
+                System.out.println("Which Minecraft PVP kit are you?");
+                System.out.println("You get to choose numbers 1-3 for every question. Enter '1' to play!");
                 int play = sc.nextInt();
                 if (play != 1) {
                         System.out.println("Unidentifiable input. Please enter '1' to play");
