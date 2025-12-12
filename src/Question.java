@@ -6,7 +6,7 @@ import java.util.Scanner;
 public class Question {
     // Fields
     String label;
-    Answer[] possibleAnswers = new Answer[3];
+    Answer[] possibleAnswers = new Answer[33];
 
     Question(String label) {
         this.label = label;
@@ -16,24 +16,29 @@ public class Question {
     Category ask(Scanner sc) {
         System.out.println(this.label);
         // prints out all the answer choices
-        for (int i = 0; i < this.possibleAnswers.length; i++) {
+        int maxOptions = this.possibleAnswers.length;
+        for (int i = 0; i < maxOptions; i++) {
+            if (this.possibleAnswers[i] == null) {
+                continue;
+            }
             String choice = Integer.toString(i + 1);
             System.out.println("[" + choice + "]:" +
                     this.possibleAnswers[i].label);
         }
         
-        int ans=0;
-        while(true){
-            boolean checker=sc.hasNextInt();
-            if(checker==true){
+        int ans = 0;
+        while (true) {
+            if (sc.hasNextInt()) {
                 ans = sc.nextInt();
-                sc.next();
-                if(ans<=3)
+                if (ans >= 1 && ans <= maxOptions && this.possibleAnswers[ans - 1] != null) {
                     break;
-                else
-                    System.out.println("Please enter an integer between 1-3");}
-            else
-                System.out.println("Please enter an integer between 1-3");
+                } else {
+                    System.out.println("Please enter an integer between 1-" + maxOptions);
+                }
+            } else {
+                System.out.println("Please enter an integer between 1-" + maxOptions);
+                sc.next();
+            }
         }
         return possibleAnswers[ans - 1].cat;
     }
