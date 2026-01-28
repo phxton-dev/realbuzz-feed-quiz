@@ -4,10 +4,13 @@
  * This is the class where we create the Quiz and run it. It has the main method.  
  */
 import java.util.Scanner;
-
+import java.util.HashMap;
+import java.util.Map;
 public class Quiz {
         static Scanner sc = new Scanner(System.in);
-
+        // HashMap to track category popularity across multiple games
+        static HashMap<String, Integer> categoryPopularity = new HashMap<>();
+        
         public static void main(String[] args) throws Exception {
                 // Create Categories
                 Category Vanilla = new Category("Vanilla",
@@ -65,18 +68,29 @@ public class Quiz {
                         Category c = q.ask(sc);
                         c.points++;
                 }
-                // Get most common category from the questions asked
-                // Return Category
                 Category[] cList = { Vanilla, NetheriteOP, SMP};
                 // these need to be in the same order or the points will be incorrect!
                 int index = getMostPopularCatIndex(cList);
                 System.out.println("If you were a Minecraft PVP kit, you would be: " + cList[index].label + ". ");
                 System.out.println(cList[index].description);
+                String resultCategory = cList[index].label;
+                updateCategoryPopularity(resultCategory);
+                System.out.println("\nWould you like to play again? (1 = Yes, 2 = No)");
+                int playAgain = sc.nextInt();
+                if (playAgain == 1) {
+                        for (Category c : cList) {
+                                c.points = 0;
+                        }
+                        main(args);
+                } else {
+                        displayCategoryPopularity();
+                        System.out.println("\nThanks for playing!");
+                        sc.close();
+                }
 
         }
 
         public static void gameIntro() {
-                // requires 1 to keep going
                 System.out.println("Which Minecraft PVP kit are you?");
                 System.out.println("You get to choose numbers 1-3 for every question. Enter '1' to play!");
                 int play = sc.nextInt();
@@ -86,8 +100,6 @@ public class Quiz {
                 }
         }
 
-        // returns the index that is the max
-        // the tie breaker is the first Category that has the count is the "max" :/ 
         public static int getMostPopularCatIndex(Category[] counts) {
                 int maxCount = 0;
                 int maxIndex = 0;
@@ -98,5 +110,31 @@ public class Quiz {
                         }
                 }
                 return maxIndex;
+        }
+        
+        public static void updateCategoryPopularity(String category) {
+                if (categoryPopularity.containsKey(category)) {
+                        categoryPopularity.put(category, categoryPopularity.get(category) + 1);
+                } else {
+                        categoryPopularity.put(category, 1);
+                }
+        }
+        public static void displayCategoryPopularity() {
+                System.out.println("\nCategory Popularity Statistics");
+                System.out.println("Category,Count");
+                for (Map.Entry<String, Integer> entry : categoryPopularity.entrySet()) {
+                        System.out.println(entry.getKey() + "," + entry.getValue());
+                }
+                String mostPopular = "";
+                int maxCount = 0;
+                for (Map.Entry<String, Integer> entry : categoryPopularity.entrySet()) {
+                        if (entry.getValue() > maxCount) {
+                                maxCount = entry.getValue();
+                                mostPopular = entry.getKey();
+                        }
+                }
+                if (!mostPopular.isEmpty()) {
+                        System.out.println("\nMost Popular Category Overall: " + mostPopular + " (" + maxCount + " times)");
+                }
         }
 }
